@@ -27,6 +27,14 @@ if (process.env.INSIGHT_NETWORK === 'livenet') {
   port = '3000';
   b_port = '8332';
   p2p_port = '8333';
+} else if (process.env.INSIGHT_REGTEST === '1') {
+  // MIRON
+  console.log("************************ REGTEST")
+  env = 'testnet';
+  db = home + '/regtest';
+  port = '3333';
+  b_port = '28882';
+  p2p_port = '28883';
 } else {
   env = 'testnet';
   db = home + '/testnet';
@@ -61,7 +69,11 @@ if (!dataDir) {
   if (isMac) dataDir = process.env.HOME + '/Library/Application Support/Bitcoin/';
   if (isLinux) dataDir = process.env.HOME + '/.bitcoin/';
 }
-dataDir += network === 'testnet' ? 'testnet3' : '';
+if (process.env.INSIGHT_REGTEST === '1') {
+   dataDir += 'regtest';
+} else {
+   dataDir += network === 'testnet' ? 'testnet3' : ''; // MIRON
+}
 
 var safeConfirmations = process.env.INSIGHT_SAFE_CONFIRMATIONS || 6;
 var ignoreCache = process.env.INSIGHT_IGNORE_CACHE || 0;
