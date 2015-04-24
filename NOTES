@@ -1,0 +1,14 @@
+Notes:
+
+To make regtest p2p work with bitcoind, edit node_modules/bitcoin/networks.js and set testnet magic to fabfb5da.
+
+cd insight
+npm install
+bower install
+grunt compile
+cd ..
+
+cd insight-api
+ln -s ../insight/public .
+npm install
+./go
